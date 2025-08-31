@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vertical Bootstrap Carousel</title>
+  <title>Bootstrap Carousel Multi-Mode</title>
   <link rel="stylesheet" href="bootstrap.css">
   <style>
     .carousel .carousel-inner {
@@ -21,44 +21,217 @@
       height: 100vh;
     }
 
-    .carousel.vertical .carousel-item-next {
+    div.carousel.B div.carousel-caption {
+      animation: B ease-in-out 1s;
+    }
+
+    @keyframes B {
+      0% {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      100% {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    div.carousel.C div.carousel-caption {
+      animation: C ease-in-out 0.3s forwards;
+    }
+
+    /* ---------------- Mode C (vertical) ---------------- */
+    .carousel.C .carousel-item-next {
       transform: translateY(100%);
     }
 
-    .carousel.vertical .carousel-item-prev {
+    .carousel.C .carousel-item-prev {
       transform: translateY(-100%);
     }
 
-    .carousel.vertical .active.carousel-item-left {
+    .carousel.C .active.carousel-item-left {
       transform: translateY(-100%);
     }
 
-    .carousel.vertical .active.carousel-item-right {
+    .carousel.C .active.carousel-item-right {
       transform: translateY(100%);
     }
 
-    .carousel.vertical .carousel-item-next.carousel-item-left,
-    .carousel.vertical .carousel-item-prev.carousel-item-right {
+    .carousel.C .carousel-item-next.carousel-item-left,
+    .carousel.C .carousel-item-prev.carousel-item-right {
       transform: translateY(0);
     }
 
-    .carousel.vertical .carousel-item img {
+    .carousel.C .carousel-item img {
       width: 100%;
       display: block;
     }
 
+
     img.control {
       cursor: pointer;
-      z-index: 9;
+      z-index: 100;
       right: 0;
       width: 50px;
     }
-    div.carousel-caption{
+
+    /* ---------------- Mode D (scattered rotation) ---------------- */
+    .carousel.D .carousel-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .carousel.D .carousel-item {
       position: absolute;
-      transform: translateX(-50%);
+      top: 50%;
+      left: -100%;
+      width: 85%;
+      height: auto;
+      max-height: 85vh;
+      transform: translateY(-50%) scale(0.95) rotate(var(--rotation));
+      z-index: 3;
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+
+    .carousel.D .carousel-item img {
+      width: 100%;
+      height: auto;
+      border: 3px solid #fff;
+      border-radius: 5px;
+      display: block;
+      z-index: 1;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel.D .carousel-item.active {
       left: 50%;
-      bottom: 20px;
-      z-index: 9;
+      transform: translate(-50%, -50%) scale(1) rotate(var(--rotation));
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .carousel.E .carousel-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 1;
+      transform: translateZ(-100px);
+      /* Pushes the next slide back in 3D space */
+      transition: transform 0.6s ease;
+    }
+
+    .carousel.E .carousel-item.active {
+      z-index: 2;
+      /* Active item is on top */
+      transform: translateZ(0);
+      /* Brings the active item forward */
+    }
+
+    .carousel.E .carousel-inner {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    .carousel.E .door {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1.2s ease;
+    }
+
+    .carousel.E .door-half {
+      width: 50%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .carousel.E .door-half.left {
+      background-position: left;
+      transform-origin: left;
+      /* Set origin to the left edge */
+      transition: transform 1.2s ease;
+    }
+
+    .carousel.E .door-half.right {
+      transform-origin: right;
+      background-position: right;
+      /* Set origin to the right edge */
+      transition: transform 1.2s ease;
+    }
+
+    /* State for opening doors */
+    .carousel.E .carousel-item.active .door.open .door-half.left {
+      transform: rotateY(-90deg);
+    }
+
+    .carousel.E .carousel-item.active .door.open .door-half.right {
+      transform: rotateY(90deg);
+    }
+
+    .carousel.E .carousel-caption {
+      display: none;
+      /* Hide captions in Mode E */
+    }
+
+    /* ---------------- Mode F (flip X) ---------------- */
+    .carousel.F .carousel-inner {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    .carousel.F .carousel-item-next {
+      transform: rotateX(180deg);
+    }
+
+    .carousel.F .carousel-item-prev {
+      transform: rotateX(-180deg);
+    }
+
+    .carousel.F .active.carousel-item-left {
+      transform: rotateX(-180deg);
+    }
+
+    .carousel.F .active.carousel-item-right {
+      transform: rotateX(180deg);
+    }
+
+    .carousel.F .carousel-item-next.carousel-item-left,
+    .carousel.F .carousel-item-prev.carousel-item-right {
+      transform: rotateX(0);
+    }
+
+    .carousel.F .carousel-item img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ---------------- Shared caption ---------------- */
+    .carousel .carousel-caption {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 0 0 5px 5px;
+    }
+
+    a.carousel-control-prev,
+    a.carousel-control-next {
+      z-index: 10;
+    }
+
+    span.carousel-control-prev-icon,
+    span.carousel-control-next-icon {
+      filter: invert(1) grayscale(100);
+      position: absolute;
     }
   </style>
 </head>
@@ -67,34 +240,57 @@
   <div id="app">
     <img src="./Sample Photos/setting-icon.png" onclick="$('div.modal').modal('show')"
       class="control position-absolute">
-    <div id="Carousel" class="carousel" :class="mode == 'A' ? '' : 'slide'" data-ride="carousel" data-interval="3000">
+
+    <div id="Carousel" class="carousel" :class="mode" data-ride="carousel" data-interval="3000">
       <ol class="carousel-indicators">
         <li data-target="#Carousel" v-for="(_,i) in indicator" :data-slide-to="i" :class="i === 0 ? 'active' : ''"></li>
       </ol>
 
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg" alt="Slide 1">
+          <div v-if="mode.includes('E')" class="door">
+            <div class="door-half left"
+              style="background-image:url('Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg');"></div>
+            <div class="door-half right"
+              style="background-image:url('Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg');"></div>
+          </div>
+          <img v-else src="Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg" alt="Slide 1">
           <div class="carousel-caption">
-            <h5>basilique notre dame de fourviere lyon</h5>
+            <h5>Basilique Notre Dame De Fourviere Lyon</h5>
           </div>
         </div>
+
         <div class="carousel-item">
-          <img src="Sample Photos/beautiful-view-in-lyon.jpg" alt="Slide 2">
+          <div v-if="mode.includes('E')" class="door">
+            <div class="door-half left" style="background-image:url('Sample Photos/beautiful-view-in-lyon.jpg');"></div>
+            <div class="door-half right" style="background-image:url('Sample Photos/beautiful-view-in-lyon.jpg');">
+            </div>
+          </div>
+          <img v-else src="Sample Photos/beautiful-view-in-lyon.jpg" alt="Slide 2">
           <div class="carousel-caption">
-            <h5>eautiful view in lyon</h5>
+            <h5>Beautiful View In Lyon</h5>
           </div>
         </div>
+
         <div class="carousel-item">
-          <img src="Sample Photos/place-bellecour-lyon.jpg" alt="Slide 3">
+          <div v-if="mode.includes('E')" class="door">
+            <div class="door-half left" style="background-image:url('Sample Photos/place-bellecour-lyon.jpg');"></div>
+            <div class="door-half right" style="background-image:url('Sample Photos/place-bellecour-lyon.jpg');"></div>
+          </div>
+          <img v-else src="Sample Photos/place-bellecour-lyon.jpg" alt="Slide 3">
           <div class="carousel-caption">
-            <h5>place bellecour lyon</h5>
+            <h5>Place Bellecour Lyon</h5>
           </div>
         </div>
+
         <div class="carousel-item">
-          <img src="Sample Photos/tour-metalique-lyon.jpg" alt="Slide 3">
+          <div v-if="mode.includes('E')" class="door">
+            <div class="door-half left" style="background-image:url('Sample Photos/tour-metalique-lyon.jpg');"></div>
+            <div class="door-half right" style="background-image:url('Sample Photos/tour-metalique-lyon.jpg');"></div>
+          </div>
+          <img v-else src="Sample Photos/tour-metalique-lyon.jpg" alt="Slide 4">
           <div class="carousel-caption">
-            <h5>tour metalique lyon</h5>
+            <h5>Tour Metalique Lyon</h5>
           </div>
         </div>
       </div>
@@ -124,77 +320,123 @@
   <script src="jqueryv3.7.1.js"></script>
   <script src="bootstrap.js"></script>
   <script src="vue.global.js"></script>
+  <script>
+    $(document).keydown(function (e) {
+      if (e.ctrlKey && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        $("div.modal").modal("show")
+      }
+      if (e.key === '/') {
+        $("div.modal").modal("show")
+      }
+    })
+
+    const { createApp } = Vue
+    createApp({
+      data() {
+        return {
+          mode: localStorage.getItem("mode") || "",
+          indicator: 0,
+          command: "",
+          commands: [
+            "Change to manual control mode",
+            "Change to auto-playing mode",
+            "Change to random playing mode",
+            "Switch to theme A",
+            "Switch to theme B",
+            "Switch to theme C",
+            "Switch to theme D",
+            "Switch to theme E",
+            "Switch to theme F",
+          ]
+        }
+      },
+      computed: {
+        filterCommands() {
+          if (!this.command) return []
+          let keyword = this.command.toLowerCase()
+          return this.commands.filter(cmd => cmd.toLowerCase().includes(keyword))
+        }
+      },
+      methods: {
+        indicators() {
+          const count = $(".carousel-item").length
+          this.indicator = count
+        },
+        selectedCommand(cmd) {
+          this.command = cmd
+        },
+        setCommand() {
+          switch (this.command) {
+            case 'Switch to theme A':
+              this.mode = ""
+              break;
+            case 'Switch to theme B':
+              this.mode = "slide B"
+              break;
+            case 'Switch to theme C':
+              this.mode = "slide C"
+              break;
+            case 'Switch to theme D':
+              this.mode = "slide D"
+              break;
+            case 'Switch to theme E':
+              this.mode = "slide E"
+              break;
+            case 'Switch to theme F':
+              this.mode = "slide F"
+              break;
+            default:
+              alert("invalid command")
+              break;
+          }
+          localStorage.setItem("mode", this.mode)
+          $("div.modal").modal('hide')
+        }
+      },
+      mounted() {
+        this.indicators()
+        const self = this
+        $('.carousel.D .carousel-item').each(function () {
+          const angle = (Math.random() * 10 - 5).toFixed(2) + "deg"
+          $(this).css('--rotation', angle)
+        })
+        $('#Carousel').on('slide.bs.carousel', function (e) {
+          const currentSlide = $(this).find('.carousel-item.active')
+          const nextSlide = $(e.relatedTarget)
+          
+          if ($(this).hasClass("E")) {
+            const currentDoor = currentSlide.find('.door')
+            console.log(currentDoor);
+  
+            nextSlide.find('.door').removeClass('open');
+  
+            if (currentDoor.length) {
+              setTimeout(() => {
+                currentDoor.addClass('open')
+                console.log("open");
+              }, 400)
+            }
+          }
+          if ($(this).hasClass("C")) {
+            const caption = nextSlide.find(".carousel-caption"); // target caption
+            const words = caption.text().split(" ");
+            caption.empty();
+  
+            words.forEach((word, index) => {
+              const wordspan = $(`<span style="display:none;">${word} </span>`);
+              caption.append(wordspan);
+  
+              setTimeout(() => {
+                wordspan.slideDown(500);  // slide **in** instead of up
+              }, index * 150);
+            });
+          }
+        });
+
+      }
+    }).mount("#app")
+  </script>
 </body>
 
 </html>
-<script>
-  const { createApp } = Vue
-  createApp({
-    data() {
-      return {
-        mode: localStorage.getItem("mode"),
-        indicator: 0,
-        command: "",
-        commands: [
-          "Change to manual control mode",
-          "Change to auto-playing mode",
-          "Change to random playing mode",
-          "Switch to theme A",
-          "Switch to theme B",
-          "Switch to theme C",
-          "Switch to theme D",
-          "Switch to theme E",
-          "Switch to theme F",
-        ]
-      }
-    },
-    computed: {
-      filterCommands() {
-        if (!this.command) return []
-        let keyword = this.command.toLowerCase()
-        return this.commands.filter(cmd => cmd.toLowerCase().includes(keyword))
-      }
-    },
-    methods: {
-      indicators() {
-        const count = $(".carousel-item").length
-        this.indicator = count
-      },
-      selectedCommand(cmd) {
-        this.command = cmd
-      },
-      setCommand() {
-        switch (this.command) {
-          case 'Switch to theme A':
-            this.mode = "A"
-            break;
-          case 'Switch to theme B':
-            this.mode = "B"
-            break;
-          case 'Switch to theme C':
-            this.mode = "C"
-            break;
-          case 'Switch to theme D':
-            this.mode = "D"
-            break;
-          case 'Switch to theme E':
-            this.mode = "E"
-            break;
-          case 'Switch to theme F':
-            this.mode = "F"
-            break;
-            
-          default:
-            alert("invalid command")
-            break;
-        }
-        console.log(this.mode);
-        
-        $("div.modal").modal('hide')
-      }
-    },
-    mounted() {
-      this.indicators()
-    }
-  }).mount("#app")
-</script>
