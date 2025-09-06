@@ -2,441 +2,466 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bootstrap Carousel Multi-Mode</title>
-  <link rel="stylesheet" href="bootstrap.css">
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>module e</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<style>
     .carousel .carousel-inner {
-      overflow: hidden;
-      height: 100vh;
+        overflow: hidden;
+        height: 100vh;
     }
 
     .carousel .carousel-item {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      transition: transform 0.6s ease;
-      height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: transform 0.6s ease;
+        height: 100vh;
     }
 
     div.carousel.B div.carousel-caption {
-      animation: B ease-in-out 1s;
+        animation: B ease-in-out 1s;
     }
 
     @keyframes B {
-      0% {
-        clip-path: inset(0 100% 0 0);
-      }
+        0% {
+            clip-path: inset(0 100% 0 0);
+        }
 
-      100% {
-        clip-path: inset(0 0 0 0);
-      }
+        100% {
+            clip-path: inset(0 0 0 0);
+        }
     }
 
     div.carousel.C div.carousel-caption {
-      animation: C ease-in-out 0.3s forwards;
+        animation: C ease-in-out 0.3s forwards;
     }
 
     /* ---------------- Mode C (vertical) ---------------- */
     .carousel.C .carousel-item-next {
-      transform: translateY(100%);
+        transform: translateY(100%);
     }
 
     .carousel.C .carousel-item-prev {
-      transform: translateY(-100%);
+        transform: translateY(-100%);
     }
 
     .carousel.C .active.carousel-item-left {
-      transform: translateY(-100%);
+        transform: translateY(-100%);
     }
 
     .carousel.C .active.carousel-item-right {
-      transform: translateY(100%);
+        transform: translateY(100%);
     }
 
     .carousel.C .carousel-item-next.carousel-item-left,
     .carousel.C .carousel-item-prev.carousel-item-right {
-      transform: translateY(0);
+        transform: translateY(0);
     }
 
     .carousel.C .carousel-item img {
-      width: 100%;
-      display: block;
+        width: 100%;
+        display: block;
     }
 
 
     img.control {
-      cursor: pointer;
-      z-index: 100;
-      right: 0;
-      width: 50px;
+        cursor: pointer;
+        z-index: 100;
+        right: 0;
+        width: 50px;
     }
 
     /* ---------------- Mode D (scattered rotation) ---------------- */
     .carousel.D .carousel-inner {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .carousel.D .carousel-item {
-      position: absolute;
-      top: 50%;
-      left: -100%;
-      width: 85%;
-      height: auto;
-      max-height: 85vh;
-      transform: translateY(-50%) scale(0.95) rotate(var(--rotation));
-      z-index: 3;
-      opacity: 0;
-      transition: all 0.8s ease;
+        position: absolute;
+        top: 50%;
+        left: -100%;
+        width: 85%;
+        height: auto;
+        max-height: 85vh;
+        transform: translateY(-50%) scale(0.85) rotate(var(--rotation));
+        z-index: 3;
+        opacity: 0;
+        transition: all 0.8s ease;
     }
 
     .carousel.D .carousel-item img {
-      width: 100%;
-      height: auto;
-      border: 3px solid #fff;
-      border-radius: 5px;
-      display: block;
-      z-index: 1;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        height: auto;
+        border: 3px solid #fff;
+        border-radius: 5px;
+        display: block;
+        z-index: 1;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     .carousel.D .carousel-item.active {
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1) rotate(var(--rotation));
-      opacity: 1;
-      z-index: 10;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1) rotate(var(--rotation));
+        opacity: 1;
+        z-index: 10;
     }
 
     .carousel.E .carousel-item {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 1;
-      transform: translateZ(-100px);
-      /* Pushes the next slide back in 3D space */
-      transition: transform 0.6s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        transform: translateZ(-100px);
+        /* Pushes the next slide back in 3D space */
+        transition: transform 0.6s ease;
     }
 
     .carousel.E .carousel-item.active {
-      z-index: 2;
-      /* Active item is on top */
-      transform: translateZ(0);
-      /* Brings the active item forward */
+        z-index: 2;
+        /* Active item is on top */
+        transform: translateZ(0);
+        /* Brings the active item forward */
     }
 
     .carousel.E .carousel-inner {
-      perspective: 1000px;
-      transform-style: preserve-3d;
+        perspective: 1000px;
+        transform-style: preserve-3d;
     }
 
-    .carousel.E .door {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 1.2s ease;
+    .carousel .door {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 1.2s ease;
     }
 
-    .carousel.E .door-half {
-      width: 50%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
+    .carousel .door-half {
+        width: 50%;
+        height: 100%;
+        background-size: 200% 100%;
+        background-repeat: no-repeat;
     }
 
-    .carousel.E .door-half.left {
-      background-position: left;
-      transform-origin: left;
-      /* Set origin to the left edge */
-      transition: transform 1.2s ease;
+    .carousel .door-half.left {
+        background-position: left center;
+        transform-origin: left;
+        /* Set origin to the left edge */
+        transition: transform 1.2s ease;
     }
 
-    .carousel.E .door-half.right {
-      transform-origin: right;
-      background-position: right;
-      /* Set origin to the right edge */
-      transition: transform 1.2s ease;
+    .carousel .door-half.right {
+        transform-origin: right;
+        background-position: right center;
+        /* Set origin to the right edge */
+        transition: transform 1.2s ease;
     }
 
     /* State for opening doors */
-    .carousel.E .carousel-item.active .door.open .door-half.left {
-      transform: rotateY(-90deg);
+    .carousel .carousel-item.active .door.open .door-half.left {
+        transform: rotateY(-90deg);
     }
 
-    .carousel.E .carousel-item.active .door.open .door-half.right {
-      transform: rotateY(90deg);
+    .carousel .carousel-item.active .door.open .door-half.right {
+        transform: rotateY(90deg);
     }
 
     .carousel.E .carousel-caption {
-      display: none;
-      /* Hide captions in Mode E */
+        display: none;
+        /* Hide captions in Mode E */
     }
 
     /* ---------------- Mode F (flip X) ---------------- */
     .carousel.F .carousel-inner {
-      perspective: 1200px;
-      transform-style: preserve-3d;
+        perspective: 1200px;
+        transform-style: preserve-3d;
     }
 
     .carousel.F .carousel-item-next {
-      transform: rotateX(180deg);
+        transform: rotateX(180deg);
     }
 
     .carousel.F .carousel-item-prev {
-      transform: rotateX(-180deg);
+        transform: rotateX(-180deg);
     }
 
     .carousel.F .active.carousel-item-left {
-      transform: rotateX(-180deg);
+        transform: rotateX(-180deg);
     }
 
     .carousel.F .active.carousel-item-right {
-      transform: rotateX(180deg);
+        transform: rotateX(180deg);
     }
 
     .carousel.F .carousel-item-next.carousel-item-left,
     .carousel.F .carousel-item-prev.carousel-item-right {
-      transform: rotateX(0);
+        transform: rotateX(0);
     }
 
     .carousel.F .carousel-item img {
-      width: 100%;
-      display: block;
+        width: 100%;
+        display: block;
     }
 
     /* ---------------- Shared caption ---------------- */
     .carousel .carousel-caption {
-      position: absolute;
-      bottom: 30px;
-      left: 0;
-      width: 100%;
-      background: #fff;
-      color: #000;
-      font-weight: bold;
-      padding: 10px;
-      border-radius: 0 0 5px 5px;
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 0 0 5px 5px;
     }
 
     a.carousel-control-prev,
     a.carousel-control-next {
-      z-index: 10;
+        z-index: 10;
     }
 
     span.carousel-control-prev-icon,
     span.carousel-control-next-icon {
-      filter: invert(1) grayscale(100);
-      position: absolute;
+        filter: invert(1) grayscale(100);
+        position: absolute;
     }
-  </style>
-</head>
+</style>
 
 <body>
-  <div id="app">
-    <img src="./Sample Photos/setting-icon.png" onclick="$('div.modal').modal('show')"
-      class="control position-absolute">
-
-    <div id="Carousel" class="carousel" :class="mode" data-ride="carousel" data-interval="3000">
-      <ol class="carousel-indicators">
-        <li data-target="#Carousel" v-for="(_,i) in indicator" :data-slide-to="i" :class="i === 0 ? 'active' : ''"></li>
-      </ol>
-
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div v-if="mode.includes('E')" class="door">
-            <div class="door-half left"
-              style="background-image:url('Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg');"></div>
-            <div class="door-half right"
-              style="background-image:url('Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg');"></div>
-          </div>
-          <img v-else src="Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg" alt="Slide 1">
-          <div class="carousel-caption">
-            <h5>Basilique Notre Dame De Fourviere Lyon</h5>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div v-if="mode.includes('E')" class="door">
-            <div class="door-half left" style="background-image:url('Sample Photos/beautiful-view-in-lyon.jpg');"></div>
-            <div class="door-half right" style="background-image:url('Sample Photos/beautiful-view-in-lyon.jpg');">
+    <div id="app">
+        <img src="./Sample Photos/setting-icon.png" onclick="$('div.modal').modal('show')"
+            class="control position-absolute">
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form class="modal-body" @submit.prevent="setCommand">
+                        <input type="text" placeholder="command" class="border-0 form-control shadow-none"
+                            v-model="command">
+                        <ul class="list-group" v-if="filterCommands.length">
+                            <li class="list-group-item" v-for="(cmd,i) in filterCommands" @click="selectedCommand(cmd)">
+                                {{cmd}}</li>
+                        </ul>
+                    </form>
+                </div>
             </div>
-          </div>
-          <img v-else src="Sample Photos/beautiful-view-in-lyon.jpg" alt="Slide 2">
-          <div class="carousel-caption">
-            <h5>Beautiful View In Lyon</h5>
-          </div>
         </div>
-
-        <div class="carousel-item">
-          <div v-if="mode.includes('E')" class="door">
-            <div class="door-half left" style="background-image:url('Sample Photos/place-bellecour-lyon.jpg');"></div>
-            <div class="door-half right" style="background-image:url('Sample Photos/place-bellecour-lyon.jpg');"></div>
-          </div>
-          <img v-else src="Sample Photos/place-bellecour-lyon.jpg" alt="Slide 3">
-          <div class="carousel-caption">
-            <h5>Place Bellecour Lyon</h5>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <div v-if="mode.includes('E')" class="door">
-            <div class="door-half left" style="background-image:url('Sample Photos/tour-metalique-lyon.jpg');"></div>
-            <div class="door-half right" style="background-image:url('Sample Photos/tour-metalique-lyon.jpg');"></div>
-          </div>
-          <img v-else src="Sample Photos/tour-metalique-lyon.jpg" alt="Slide 4">
-          <div class="carousel-caption">
-            <h5>Tour Metalique Lyon</h5>
-          </div>
-        </div>
-      </div>
-
-      <a class="carousel-control-prev" href="#Carousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#Carousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a>
-    </div>
-
-    <div class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form class="modal-body" @submit.prevent="setCommand">
-            <input type="text" placeholder="command" class="border-0 form-control shadow-none" v-model="command">
-            <ul class="list-group" v-if="filterCommands.length">
-              <li class="list-group-item" v-for="(cmd,i) in filterCommands" @click="selectedCommand(cmd)">{{cmd}}</li>
+        <div class="carousel" data-ride="carousel" :class="[theme, mode ,theme != 'A' ? 'slide' : '']" id="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel" data-slide-to="1"></li>
+                <li data-target="#carousel" data-slide-to="2"></li>
+                <li data-target="#carousel" data-slide-to="3"></li>
             </ul>
-          </form>
+            <div class="carousel-inner">
+                <carousel :mode="theme"></carousel>
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
         </div>
-      </div>
     </div>
-  </div>
-
-  <script src="jqueryv3.7.1.js"></script>
-  <script src="bootstrap.js"></script>
-  <script src="vue.global.js"></script>
-  <script>
-    $(document).keydown(function (e) {
-      if (e.ctrlKey && e.key.toLowerCase() === 'k') {
-        e.preventDefault()
-        $("div.modal").modal("show")
-      }
-      if (e.key === '/') {
-        $("div.modal").modal("show")
-      }
-    })
-
-    const { createApp } = Vue
-    createApp({
-      data() {
-        return {
-          mode: localStorage.getItem("mode") || "",
-          indicator: 0,
-          command: "",
-          commands: [
-            "Change to manual control mode",
-            "Change to auto-playing mode",
-            "Change to random playing mode",
-            "Switch to theme A",
-            "Switch to theme B",
-            "Switch to theme C",
-            "Switch to theme D",
-            "Switch to theme E",
-            "Switch to theme F",
-          ]
-        }
-      },
-      computed: {
-        filterCommands() {
-          if (!this.command) return []
-          let keyword = this.command.toLowerCase()
-          return this.commands.filter(cmd => cmd.toLowerCase().includes(keyword))
-        }
-      },
-      methods: {
-        indicators() {
-          const count = $(".carousel-item").length
-          this.indicator = count
-        },
-        selectedCommand(cmd) {
-          this.command = cmd
-        },
-        setCommand() {
-          switch (this.command) {
-            case 'Switch to theme A':
-              this.mode = ""
-              break;
-            case 'Switch to theme B':
-              this.mode = "slide B"
-              break;
-            case 'Switch to theme C':
-              this.mode = "slide C"
-              break;
-            case 'Switch to theme D':
-              this.mode = "slide D"
-              break;
-            case 'Switch to theme E':
-              this.mode = "slide E"
-              break;
-            case 'Switch to theme F':
-              this.mode = "slide F"
-              break;
-            default:
-              alert("invalid command")
-              break;
-          }
-          localStorage.setItem("mode", this.mode)
-          $("div.modal").modal('hide')
-        }
-      },
-      mounted() {
-        this.indicators()
-        const self = this
-        $('.carousel.D .carousel-item').each(function () {
-          const angle = (Math.random() * 10 - 5).toFixed(2) + "deg"
-          $(this).css('--rotation', angle)
-        })
-        $('#Carousel').on('slide.bs.carousel', function (e) {
-          const currentSlide = $(this).find('.carousel-item.active')
-          const nextSlide = $(e.relatedTarget)
-          
-          if ($(this).hasClass("E")) {
-            const currentDoor = currentSlide.find('.door')
-            console.log(currentDoor);
-  
-            nextSlide.find('.door').removeClass('open');
-  
-            if (currentDoor.length) {
-              setTimeout(() => {
-                currentDoor.addClass('open')
-                console.log("open");
-              }, 400)
-            }
-          }
-          if ($(this).hasClass("C")) {
-            const caption = nextSlide.find(".carousel-caption"); // target caption
-            const words = caption.text().split(" ");
-            caption.empty();
-  
-            words.forEach((word, index) => {
-              const wordspan = $(`<span style="display:none;">${word} </span>`);
-              caption.append(wordspan);
-  
-              setTimeout(() => {
-                wordspan.slideDown(500);  // slide **in** instead of up
-              }, index * 150);
-            });
-          }
-        });
-
-      }
-    }).mount("#app")
-  </script>
 </body>
 
 </html>
+<script src="jqueryv3.7.1.js"></script>
+<script src="jquery-uiv1.13.2.js"></script>
+<script src="bootstrap.js"></script>
+<script src="vue.global.js"></script>
+<script>
+    const { createApp } = Vue;
+    const app = createApp({
+        data() {
+            return {
+                theme: localStorage.getItem("theme"),
+                mode: localStorage.getItem("mode"),
+                indicator: 4,
+                command: "",
+                commands: [
+                    "Change to manual control mode",
+                    "Change to auto-playing mode",
+                    "Change to random playing mode",
+                    "Switch to theme A",
+                    "Switch to theme B",
+                    "Switch to theme C",
+                    "Switch to theme D",
+                    "Switch to theme E",
+                    "Switch to theme F",
+                ]
+            };
+        },
+        computed: {
+            filterCommands() {
+                if (!this.command) return [];
+                let keyword = this.command.toLowerCase();
+                return this.commands.filter(cmd => cmd.toLowerCase().includes(keyword));
+            }
+        },
+        methods: {
+            selectedCommand(cmd) {
+                this.command = cmd;
+            },
+            setCommand() {
+                switch (this.command) {
+                    case 'Switch to theme A': this.theme = 'A'; break;
+                    case 'Switch to theme B': this.theme = 'B'; break;
+                    case 'Switch to theme C': this.theme = 'C'; break;
+                    case 'Switch to theme D': this.theme = 'D'; break;
+                    case 'Switch to theme E': this.theme = 'E'; break;
+                    case 'Switch to theme F': this.theme = 'F'; break;
+                    case 'Change to random playing mode':
+                        this.randomMode();
+                        this.mode = 'random';
+                        break;
+                    case 'Change to auto-playing mode':
+                        this.mode = 'auto'
+                        $(".carousel").off("slide.bs.carousel.random");
+                        $(".carousel-control-prev, .carousel-control-next").hide()
+                        break;
+                    case 'Change to manual control mode':
+                        this.mode = 'manual'
+                        $(".carousel-control-prev, .carousel-control-next").show()
+                        $(".carousel").off("slide.bs.carousel.random");
+                        break;
+
+                    default: alert("command not exist"); break;
+                }
+                localStorage.setItem("mode", this.mode)
+                localStorage.setItem("theme", this.theme)
+                $("div.modal").modal("hide");
+            },
+            initializeCarouselJS() {
+                const carouselElement = $('#carousel');
+
+                carouselElement.off('slide.bs.carousel');
+
+                $('.carousel.D .carousel-item').each(function () {
+                    const angle = (Math.random() * 10 - 5).toFixed(2) + "deg";
+                    $(this).css('--rotation', angle);
+                });
+
+                carouselElement.on('slide.bs.carousel', function (e) {
+                    const currentSlide = $(this).find('.carousel-item.active');
+                    const nextSlide = $(e.relatedTarget);
+
+                    if ($(this).hasClass("E")) {
+                        const currentDoor = currentSlide.find('.door');
+
+                        nextSlide.find('.door').removeClass('open');
+
+                        if (currentDoor.length) {
+                            setTimeout(() => {
+                                currentDoor.addClass('open');
+                            }, 400);
+                        }
+                    }
+
+                    if ($(this).hasClass("C")) {
+                        const caption = nextSlide.find(".carousel-caption");
+                        const words = caption.text().split(" ");
+                        caption.empty();
+
+                        words.forEach((word, index) => {
+                            const wordspan = $(`<span style="display:none;">${word} </span>`);
+                            caption.append(wordspan);
+
+                            setTimeout(() => {
+                                wordspan.slideDown(500);
+                            }, index * 150);
+                        });
+                    }
+                });
+            },
+            randomMode() {
+                const carousel = $("div#carousel");
+                const total = carousel.find(".carousel-item").length;
+
+                carousel.off("slide.bs.carousel.random");
+
+                carousel.on("slide.bs.carousel.random", function (e) {
+                    const currentSlide = $(this).find(".carousel-item.active").index();
+                    let next;
+                    do {
+                        next = Math.floor(Math.random() * total);
+                    } while (next === currentSlide);
+                    console.log(next);
+
+                    setTimeout(() => {
+                        $(this).carousel(next);
+                    }, 0);
+                });
+            }
+        },
+        watch: {
+            theme() {
+                this.$nextTick(() => {
+                    this.initializeCarouselJS();
+                });
+            }
+        },
+        mounted() {
+            this.initializeCarouselJS();
+            this.setCommand()
+        }
+    });
+    app.component("carousel", {
+        props: ['mode'],
+        template: `
+        <div class="carousel-item active">
+            <div v-if="mode === 'E'" class="door">
+                <div class="door-half left" style="background-image:url('Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg');"></div>
+                <div class="door-half right" style="background-image:url('Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg');"></div>
+            </div>
+            <img v-else src="Sample Photos/basilique-notre-dame-de-fourviere-lyon.jpg" alt="Slide 1">
+            <div class="carousel-caption">
+                <h5>Basilique Notre Dame De Fourviere Lyon</h5>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div v-if="mode === 'E'" class="door">
+                <div class="door-half left" style="background-image:url('Sample Photos/beautiful-view-in-lyon.jpg');"></div>
+                <div class="door-half right" style="background-image:url('Sample Photos/beautiful-view-in-lyon.jpg');"></div>
+            </div>
+            <img v-else src="Sample Photos/beautiful-view-in-lyon.jpg" alt="Slide 2">
+            <div class="carousel-caption">
+                <h5>Beautiful View In Lyon</h5>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div v-if="mode === 'E'" class="door">
+                <div class="door-half left" style="background-image:url('Sample Photos/place-bellecour-lyon.jpg');"></div>
+                <div class="door-half right" style="background-image:url('Sample Photos/place-bellecour-lyon.jpg');"></div>
+            </div>
+            <img v-else src="Sample Photos/place-bellecour-lyon.jpg" alt="Slide 3">
+            <div class="carousel-caption">
+                <h5>Place Bellecour Lyon</h5>
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <div v-if="mode === 'E'" class="door">
+                <div class="door-half left" style="background-image:url('Sample Photos/tour-metalique-lyon.jpg');"></div>
+                <div class="door-half right" style="background-image:url('Sample Photos/tour-metalique-lyon.jpg');"></div>
+            </div>
+            <img v-else src="Sample Photos/tour-metalique-lyon.jpg" alt="Slide 4">
+            <div class="carousel-caption">
+                <h5>Tour Metalique Lyon</h5>
+            </div>
+        </div>
+    `
+    })
+    app.mount("#app")
+</script>
